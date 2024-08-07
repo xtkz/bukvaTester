@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Проверка букв и слогов</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,4 +42,15 @@
         <button onclick="document.location='slog.html'">Проверить слоги</button>
 </div>
 </body>
+<script>
+    window.onload = () => {
+        if (document.webkitFullscreenElement) {
+      document.webkitCancelFullScreen();
+    } else {
+      const el = document.documentElement;
+      el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+    }
+
+</script>
 </html>
