@@ -45,12 +45,16 @@
     //              АУОЫИЕЯЁЮЭ
     const consonants = "НМТКХБВГДЖЗЛПРСФЦЧШЩ".split("");
     //                  НМТКХБВГДЖЗЛПРСФЦЧШЩ
-    const fwdExceptions = ["жы", "жя", "жю", "жэ", "ця", "цё",
-    "цю", "цэ", "ць", 'чы', 'чя', 'чю', 'чэ', 'шы', 'шя', 'шю',
-    'шэ', 'щы', 'щя', 'щю', 'щэ', 'щь', 'йы', 'йя', 'йё', 'йю',
-    'йь', 'ёб', ];
+    const fwdExceptions = [
+    "жя", "жы", "жю", "жэ",
+    "ця", "цю", "цё", "цэ", "ць",
+    "чя", 'чю', 'чё', 'чы', 'чэ',
+    'шя', 'шю', 'шы', 'шэ',
+    'щя', 'щю', 'щы', 'щэ', 'щь',
+    'йы', 'йя', 'йё', 'йю', "йэ", 'йь', 
+    'ёб', 'ёп'];
     const totalCount = 2 * vowels.length * consonants.length - fwdExceptions.length;
-    console.log(totalCount);
+    
     let alreadyUsed = [];
 
     const heading = document.querySelector('h1')
@@ -71,7 +75,7 @@
         if (isFWD) {
             slog = rndFromArray(consonants.concat(["Й"])) + rndFromArray(vowels.concat(["Ь"]));
         } else {
-            slog = rndFromArray(vowels) + rndFromArray(consonants);
+            slog = rndFromArray(vowels) + rndFromArray(consonants.concat(["Й"]));
         }
 
         isFWD = !isFWD;
