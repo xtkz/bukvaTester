@@ -66,7 +66,7 @@
     let isFWD = true;
 
     function nextSlog() {
-        let slog = '';
+        let slog;
         if (isFWD) {
             slog = rndFromArray(consonants.concat(["Й"])) + rndFromArray(vowels.concat(["Ь"]));
         } else {
@@ -85,13 +85,16 @@
         }
     }
 
-    document.querySelector("#btn").onclick = function(){
-        parag.textContent = alreadyUsed.length ? alreadyUsed.join(', ') : "";
+    const getNextSlog = function(){
         let newSlog = nextSlog();
         heading.textContent = newSlog;
         alreadyUsed.push(newSlog);
         meter.value = alreadyUsed.length;
+        parag.textContent = alreadyUsed.length ? alreadyUsed.join(', ') : "";
     }
+
+    document.querySelector("#btn").onclick = getNextSlog;
+    window.onload = getNextSlog;
 
 </script>
 </html>

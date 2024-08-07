@@ -49,7 +49,7 @@
     const meter = document.querySelector("#meter");
     let flag = true;
 
-    document.querySelector("#btn").onclick = function(){
+    const nextLetter = function() {
         if (flag) {
             if (arr.length > 0) {
                 heading.textContent = arr.shift();
@@ -62,8 +62,11 @@
         } else {
             location.href = "slog.html";
         }
-
     }
+
+    document.querySelector("#btn").onclick = nextLetter;
+    window.onload = nextLetter;
+
 
 </script>
 </html>
