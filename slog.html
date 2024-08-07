@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка слогов</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+    <style>
+        h1 {
+            font-size: 13rem;
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin: 2rem auto 3rem;
+		    letter-spacing: -1rem;
+        }
+        div {
+            width: 100%;
+            text-align: center;
+        }
+        button {
+            font-size: 2rem;
+            padding: 2rem 5rem;
+        }
+        meter {
+            width: 70%;
+            height: 2rem;
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>ХХ</h1>
+    <div>
+        <p></p>
+        <button type="button" id="btn">Следующая</button>
+        <br>
+        <meter id="meter" min="0" max="30" value="0"></meter>
+    </div>
+</body>
+<script>
+    const vowels = "АУОЫИЕЯЁЮЭ".split("");
+    //              АУОЫИЕЯЁЮЭ
+    const consonants = "НМТКХБВГДЖЗЛПРСФЦЧШЩ".split("");
+    //                  НМТКХБВГДЖЗЛПРСФЦЧШЩ
+    const fwdExceptions = ["жы", "жя", "жю", "жэ", "ця", "цё",
+    "цю", "цэ", "ць", 'чы', 'чя', 'чю', 'чэ', 'шы', 'шя', 'шю',
+    'шэ', 'щы', 'щя', 'щю', 'щэ', 'щь', 'йы', 'йя', 'йё', 'йю',
+    'йь', 'ёб', ];
+    const totalCount = 2 * vowels.length * consonants.length - fwdExceptions.length;
+    console.log(totalCount);
+    let alreadyUsed = [];
+
+    const heading = document.querySelector('h1')
+    heading.textContent = 'ХХ'
+
+    const parag = document.querySelector('p');
+
+    const meter = document.querySelector("#meter");
+
+    const rndFromArray = (arr) => {
+        return arr[Math.floor(Math.random() * (arr.length + 0))]
+    }
+
+    let isFWD = true;
+
+    function nextSlog() {
+        let slog = '';
+        if (isFWD) {
+            slog = rndFromArray(consonants.concat(["Й"])) + rndFromArray(vowels.concat(["Ь"]));
+        } else {
+            slog = rndFromArray(vowels) + rndFromArray(consonants);
+        }
+
+        isFWD = !isFWD;
+        
+        if (!(alreadyUsed.indexOf(slog)+1) && !(fwdExceptions.indexOf(slog.toLowerCase())+1)) {
+            return slog;
+        } else if (alreadyUsed.length > (totalCount - 1)) {
+            return "🙅‍♀️";
+        } else {
+            isFWD = !isFWD;
+            return nextSlog();
+        }
+    }
+
+    document.querySelector("#btn").onclick = function(){
+        parag.textContent = alreadyUsed.length ? alreadyUsed.join(', ') : "";
+        let newSlog = nextSlog();
+        heading.textContent = newSlog;
+        alreadyUsed.push(newSlog);
+        meter.value = alreadyUsed.length;
+    }
+
+</script>
+</html>
